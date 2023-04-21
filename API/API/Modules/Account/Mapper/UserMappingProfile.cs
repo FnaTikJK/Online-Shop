@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace API.Modules.Account.Mapper
 {
-    public class UserMappingProfile : Profile
+    public class UserMappingProfile : AutoMapper.Profile
     {
         public UserMappingProfile()
         {

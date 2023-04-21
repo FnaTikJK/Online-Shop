@@ -11,12 +11,11 @@ namespace API.Modules.Account.Adapters
     {
         private readonly IUsersRepository usersRepository;
         private readonly IMapper mapper;
-        private readonly IJwtService jwtService;
-        public UsersService(IUsersRepository usersRepository, IMapper mapper, IJwtService jwtService)
+
+        public UsersService(IUsersRepository usersRepository, IMapper mapper)
         {
             this.usersRepository = usersRepository;
             this.mapper = mapper;
-            this.jwtService = jwtService;
         }
 
         public async Task<Result<ClaimsIdentity>> RegisterUserAsync(RegDTO regDto)

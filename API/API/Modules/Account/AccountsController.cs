@@ -1,12 +1,10 @@
-﻿using System.Net;
-using API.Modules.Account.DTO;
+﻿using API.Modules.Account.DTO;
 using API.Modules.Account.Ports;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using System;
 using API.Infrastructure;
 
 namespace API.Modules.Account
@@ -50,28 +48,6 @@ namespace API.Modules.Account
         public async Task LogoutAsync()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-    }
-
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TestController : ControllerBase
-    {
-        [Authorize]
-        [HttpGet]
-        public ActionResult Get()
-        {
-            return NoContent();
-        }
-
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        [HttpPost]
-        public ActionResult GetOptions()
-        {
-            var f = User;
-            var b = f.GetLogin();
-            var c = f.GetName();
-            return NoContent();
         }
     }
 }

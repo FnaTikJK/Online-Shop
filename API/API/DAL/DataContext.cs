@@ -7,7 +7,7 @@ namespace API.DAL
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            Init();
+            //Init();
         }
 
         private void Init()

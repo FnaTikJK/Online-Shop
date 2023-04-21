@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Modules.Account.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.DAL
 {
@@ -14,5 +15,7 @@ namespace API.DAL
             Database.EnsureDeleted();
             Database.EnsureCreated();
         }
+
+        public DbSet<Buyer> Buyers => Set<Buyer>();
     }
 }

@@ -1,11 +1,24 @@
 using System.Text.Json.Serialization;
 using API.DAL;
 using API.Modules;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAuthentication(opt =>
+    {
+        opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    })
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/api/Accounts/Register";
+    });
+builder.Services.AddAuthorization(opt => opt.GetPolicy("Cookie"));
 
 builder.Services.AddDbContext<DataContext>(options =>
 {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {RouteBuilder} from "../ApiRouteBuilder";
+import {ApiRouteBuilder} from "../ApiRouteBuilder";
 
 interface RegisterDto {
     login: string,
@@ -17,14 +17,14 @@ interface LoginDto {
 
 export class AccountsRequester {
     public static Register(data: RegisterDto){
-        axios.post(RouteBuilder.Accounts.Register.Build(), data);
+        axios.post(ApiRouteBuilder.Accounts.Register.Build(), data);
     }
 
     public static Login(data: LoginDto){
-        axios.post(RouteBuilder.Accounts.Login.Build(), data);
+        axios.post(ApiRouteBuilder.Accounts.Login.Build(), data);
     }
 
     public static Logout(){
-        axios.post(RouteBuilder.Accounts.Logout.Build());
+        axios.post(ApiRouteBuilder.Accounts.Logout.Build());
     }
 }

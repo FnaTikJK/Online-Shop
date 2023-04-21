@@ -1,6 +1,6 @@
-export class RouteBuilder{
-    public static BaseUrl: RouteBuilder = new RouteBuilder("https://localhost:7055/api/");
-    private static AccountsBase: RouteBuilder = RouteBuilder.BaseUrl.With("Accounts");
+export class ApiRouteBuilder {
+    public static BaseUrl: ApiRouteBuilder = new ApiRouteBuilder("https://localhost:7055/api/");
+    private static AccountsBase: ApiRouteBuilder = ApiRouteBuilder.BaseUrl.With("Accounts");
     public static Accounts = {
         Register: this.AccountsBase.With("Register"),
         Login: this.AccountsBase.With("Login"),
@@ -18,7 +18,7 @@ export class RouteBuilder{
     }
 
     public With(path: string){
-        return new RouteBuilder(this.route + path + "/")
+        return new ApiRouteBuilder(this.route + path + "/")
     }
 
     public Build(){

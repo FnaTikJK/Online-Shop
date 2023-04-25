@@ -6,6 +6,7 @@ import FooterComp from "./GeneralComponents/FooterComp";
 import HomePage from "./Pages/Home/HomePage";
 import HeaderComp from "./GeneralComponents/HeaderComp";
 import BasketPage from "./Pages/Basket/BasketPage";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route index element={<HomePage/>}/>
             </Route>
             <Route path={"Basket"} element={<BasketPage />}/>
+            <Route path={"Profile"} element={<ProfilePage />}/>
             <Route path={"Auth"} element={<RegisterAuthPage />}/>
         </Route>
     </Routes>

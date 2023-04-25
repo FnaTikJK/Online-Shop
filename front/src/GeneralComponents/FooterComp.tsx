@@ -13,7 +13,8 @@ const FooterComp = () => {
                 <Radio.Group defaultValue={"a"}>
                     <Radio.Button value={"a"} onClick={() => navigate("/")}>Главная</Radio.Button>
                     <Radio.Button value={"b"} onClick={() => navigate("/Basket")}>Корзина</Radio.Button>
-                    <Radio.Button value={"c"} onClick={() => navigate("/Auth")}>Аккаунт</Radio.Button>
+                    <Radio.Button value={"c"} onClick={() => navigate("/Profile")}>Аккаунт</Radio.Button>
+                    <Radio.Button value={"d"} onClick={() => navigate("/Auth")}>Вход</Radio.Button>
                 </Radio.Group>
             </footer>
         </>

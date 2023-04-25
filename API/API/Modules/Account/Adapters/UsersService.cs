@@ -11,18 +11,20 @@ namespace API.Modules.Account.Adapters
     {
         private readonly IUsersRepository usersRepository;
         private readonly IMapper mapper;
+        private readonly IJwtService jwtService;
 
-        public UsersService(IUsersRepository usersRepository, IMapper mapper)
+        public UsersService(IUsersRepository usersRepository, IMapper mapper, IJwtService jwtService)
         {
             this.usersRepository = usersRepository;
             this.mapper = mapper;
+            this.jwtService = jwtService;
         }
 
-        public async Task<Result<ClaimsIdentity>> RegisterUserAsync(RegDTO regDto)
+        public async Task<Result<string>> RegisterUserAsync(RegDTO regDto)
         {
             var existed = await usersRepository.GetUserByLoginAsync(regDto.Login);
             if (existed != null)
-                return Result.Fail<ClaimsIdentity>("Пользователь с таким логином уже существует");
+                return Result.Fail<string>("Пользователь с таким логином уже существует");
 
             await usersRepository.AddAsync(mapper.Map<Buyer>(regDto));
             await usersRepository.SaveChangesAsync();
@@ -30,22 +32,22 @@ namespace API.Modules.Account.Adapters
             return await LoginUserAsync(mapper.Map<AuthDTO>(regDto));
         }
 
-        public async Task<Result<ClaimsIdentity>> LoginUserAsync(AuthDTO authDto)
+        public async Task<Result<string>> LoginUserAsync(AuthDTO authDto)
         {
             var existed = await usersRepository.GetUserByLoginAsync(authDto.Login);
             if (existed == null)
-                return Result.Fail<ClaimsIdentity>("Такого пользователя не существует");
+                return Result.Fail<string>("Такого пользователя не существует");
 
             var cur = mapper.Map<Buyer>(authDto);
             if (cur.PasswordHash != existed.PasswordHash)
-                return Result.Fail<ClaimsIdentity>("Неправильный пароль");
+                return Result.Fail<string>("Неправильный пароль");
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, authDto.Login),
                 new Claim(ClaimTypes.Name, existed.FullName),
             };
-            return Result.Ok(new ClaimsIdentity(claims, "Cookies"));
+            return Result.Ok(jwtService.CreateToken(claims));
         }
     }
 }

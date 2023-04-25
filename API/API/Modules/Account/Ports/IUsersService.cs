@@ -6,7 +6,7 @@ namespace API.Modules.Account.Ports
 {
     public interface IUsersService
     {
-        public Task<Result<ClaimsIdentity>> RegisterUserAsync(RegDTO regDto);
-        public Task<Result<ClaimsIdentity>> LoginUserAsync(AuthDTO authDto);
+        public Task<Result<string>> RegisterUserAsync(RegDTO regDto);
+        public Task<Result<string>> LoginUserAsync(AuthDTO authDto);
     }
 }

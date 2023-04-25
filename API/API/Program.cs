@@ -1,24 +1,45 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using API.DAL;
 using API.Modules;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddAuthentication(opt =>
+builder.Services.AddAuthentication(options =>
     {
-        opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddCookie(options =>
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
-        options.LoginPath = "/api/Accounts/Register";
+        options.RequireHttpsMetadata = true;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            RequireExpirationTime = true,
+        };
     });
-builder.Services.AddAuthorization(opt => opt.GetPolicy("Cookie"));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .SetIsOriginAllowed((host) => true)
+            .AllowAnyHeader());
+});
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
@@ -31,7 +52,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -39,22 +59,39 @@ builder.Services.RegisterModules();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors("CorsPolicy");
+
+app.UseRouting();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.None,
+    HttpOnly = HttpOnlyPolicy.Always,
+    CheckConsentNeeded = context => true,
+});
+
+app.Use(async (context, next) =>
+{
+    var token = context.Request.Cookies["Auth"];
+    if (!string.IsNullOrEmpty(token))
+        context.Request.Headers.Add("Authorization", "Bearer " + token);
+
+    await next();
+});
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseEndpoints(_ => { });
+//app.UseSpa(x => x.UseProxyToSpaDevelopmentServer("http://localhost:3000/"));
+
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

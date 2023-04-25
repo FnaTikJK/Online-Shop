@@ -1,11 +1,10 @@
 ﻿using API.Modules.Account.DTO;
 using API.Modules.Account.Ports;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using API.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Modules.Account
 {
@@ -27,8 +26,7 @@ namespace API.Modules.Account
             if (!response.IsSuccess)
                 return BadRequest(response.Error);
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(response.Value));
+            Response.Cookies.Append("Auth", response.Value);
             return NoContent();
         }
 
@@ -39,15 +37,14 @@ namespace API.Modules.Account
             if (!response.IsSuccess)
                 return BadRequest(response.Error);
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(response.Value));
+            Response.Cookies.Append("Auth", response.Value);
             return NoContent();
         }
 
         [HttpPost("Logout")]
         public async Task LogoutAsync()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            Response.Cookies.Delete("Auth");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace API.Modules.Account
         {
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IJwtService, JwtService>();
             services.AddAutoMapper(typeof(UserMappingProfile));
             return services;
         }

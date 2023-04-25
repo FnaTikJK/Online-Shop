@@ -1,11 +1,12 @@
 export class ApiRouteBuilder {
-    public static BaseUrl: ApiRouteBuilder = new ApiRouteBuilder("https://localhost:7055/api/");
+    public static BaseUrl: ApiRouteBuilder = new ApiRouteBuilder("/api");
     private static AccountsBase: ApiRouteBuilder = ApiRouteBuilder.BaseUrl.With("Accounts");
     public static Accounts = {
         Register: this.AccountsBase.With("Register"),
         Login: this.AccountsBase.With("Login"),
         Logout: this.AccountsBase.With("Logout"),
     }
+    public static Profiles: ApiRouteBuilder = ApiRouteBuilder.BaseUrl.With("Profiles");
 
     private route: string;
     private queryParams: { [key:string]: string } = {};
@@ -18,7 +19,7 @@ export class ApiRouteBuilder {
     }
 
     public With(path: string){
-        return new ApiRouteBuilder(this.route + path + "/")
+        return new ApiRouteBuilder(this.route + "/" + path)
     }
 
     public Build(){

@@ -15,8 +15,7 @@ export class ProfilesRequester{
         axios.defaults.headers.post['Access-Control-Allow-Credentials']="*";
         return await axios.get<ProfileDto>(ApiRouteBuilder.Profiles.Build(),
             {
-            headers:{  },
-            withCredentials: true
+            headers:{  }
             });
     }
 

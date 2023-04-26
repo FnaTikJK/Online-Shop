@@ -4,7 +4,6 @@ using API.DAL;
 using API.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -71,9 +70,8 @@ app.UseRouting();
 
 app.UseCookiePolicy(new CookiePolicyOptions
 {
-    MinimumSameSitePolicy = SameSiteMode.None,
-    HttpOnly = HttpOnlyPolicy.Always,
-    CheckConsentNeeded = context => true,
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always
 });
 
 app.Use(async (context, next) =>
@@ -86,9 +84,6 @@ app.Use(async (context, next) =>
 });
 
 app.UseHttpsRedirection();
-
-//app.UseEndpoints(_ => { });
-//app.UseSpa(x => x.UseProxyToSpaDevelopmentServer("http://localhost:3000/"));
 
 app.UseAuthentication();
 app.UseAuthorization();

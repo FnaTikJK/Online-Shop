@@ -10,12 +10,14 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-        let info = ProfilesRequester.GetOwnProfile().then(e => console.log(e));
+        let info = ProfilesRequester.GetOwnProfile()
+            .then(e => console.log(e));
         if (info === null)
             navigate("/Auth");
     }, [])
 
-    fetch('https://localhost:7055/api/Accounts/Logout', {method: 'post', credentials: 'include'}).then(v => console.log(v));
+
+
     return (
         <>
 

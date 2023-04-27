@@ -1,10 +1,6 @@
 ﻿using API.Modules.Account.DTO;
 using API.Modules.Account.Ports;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Modules.Account
 {

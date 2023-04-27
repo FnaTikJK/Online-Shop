@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ApiRouteBuilder} from "../ApiRouteBuilder";
 
-interface ProfileDto{
+export interface ProfileDto{
     secondName: string;
     firstName: string;
     thirdName?: string;
@@ -11,12 +11,8 @@ interface ProfileDto{
 }
 
 export class ProfilesRequester{
-    public static async GetOwnProfile() {
-        axios.defaults.headers.post['Access-Control-Allow-Credentials']="*";
-        return await axios.get<ProfileDto>(ApiRouteBuilder.Profiles.Build(),
-            {
-            headers:{  }
-            });
+    public static async GetOwnProfileInfoAsync() {
+        return await axios.get<ProfileDto>(ApiRouteBuilder.Profiles.Own.Build());
     }
 
     public static UpdateProfile(profile: ProfileDto) {

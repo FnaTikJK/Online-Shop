@@ -16,15 +16,15 @@ interface LoginDto {
 }
 
 export class AccountsRequester {
-    public static Register(data: RegisterDto){
-        axios.post(ApiRouteBuilder.Accounts.Register.Build(), data);
+    public static async RegisterAsync(data: RegisterDto){
+        return await axios.post(ApiRouteBuilder.Accounts.Register.Build(), data);
     }
 
-    public static Login(data: LoginDto){
-        axios.post(ApiRouteBuilder.Accounts.Login.Build(), data);
+    public static async LoginAsync(data: LoginDto){
+        return await axios.post(ApiRouteBuilder.Accounts.Login.Build(), data);
     }
 
-    public static Logout(){
-        axios.post(ApiRouteBuilder.Accounts.Logout.Build());
+    public static async LogoutAsync(){
+        return await axios.post(ApiRouteBuilder.Accounts.Logout.Build());
     }
 }

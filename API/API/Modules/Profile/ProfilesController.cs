@@ -21,8 +21,8 @@ namespace API.Modules.Profile
         }
 
         [Authorize]
-        [HttpGet]
-        public async Task<ActionResult<ProfileDTO>> GetProfileAsync()
+        [HttpGet("Own")]
+        public async Task<ActionResult<ProfileDTO>> GetOwnProfileAsync()
         {
             var response = await profilesService.GetProfileAsync(User.GetLogin());
 

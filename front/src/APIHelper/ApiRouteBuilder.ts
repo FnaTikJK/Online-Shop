@@ -13,6 +13,16 @@ export class ApiRouteBuilder {
         Own: ApiRouteBuilder.ProfilesBase.With("Own"),
     }
 
+    public static Products = ApiRouteBuilder.BaseUrl.With("Products");
+
+
+
+
+
+
+
+
+
     private route: string;
     private queryParams: { [key:string]: string } = {};
     private constructor(route: string) {

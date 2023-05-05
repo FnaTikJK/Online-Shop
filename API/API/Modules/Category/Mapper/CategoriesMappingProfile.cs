@@ -15,7 +15,7 @@ namespace API.Modules.Category.Mapper
     }
 
     public class CategoriesMappingConverter 
-        : IValueConverter<IEnumerable<Guid>, List<Core.Category>>
+        : IValueConverter<IEnumerable<Guid>, HashSet<Core.Category>>
     {
         private readonly ICategoriesRepository categoriesRepository;
 
@@ -24,12 +24,12 @@ namespace API.Modules.Category.Mapper
             this.categoriesRepository = categoriesRepository;
         }
 
-        public List<Core.Category> Convert(IEnumerable<Guid> sourceMember, ResolutionContext context)
+        public HashSet<Core.Category> Convert(IEnumerable<Guid> sourceMember, ResolutionContext context)
         {
             return sourceMember
                 .Select(id => categoriesRepository.GetByIdAsync(id).Result)
                 .Where(x => x != null)
-                .ToList();
+                .ToHashSet();
         }
     }
 }

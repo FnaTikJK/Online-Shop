@@ -1,4 +1,6 @@
 ﻿using API.Modules.Account.Core;
+using API.Modules.Category.Core;
+using API.Modules.Product.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.DAL
@@ -7,15 +9,11 @@ namespace API.DAL
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            //Init();
-        }
-
-        private void Init()
-        {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //DataInitiator.InitDb(this);
         }
 
         public DbSet<Buyer> Buyers => Set<Buyer>();
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Product> Products => Set<Product>();
     }
 }

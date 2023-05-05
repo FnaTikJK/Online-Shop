@@ -7,7 +7,7 @@
         public string Description { get; set; }
         public byte[]? Image { get; set; }
 
-        public List<Product.Core.Product> Products { get; set; }
+        public HashSet<Product.Core.Product> Products { get; set; }
 
         public static Category GetStandardCategory(int id)
         {

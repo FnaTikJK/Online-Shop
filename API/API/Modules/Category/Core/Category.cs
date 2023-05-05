@@ -8,5 +8,17 @@
         public byte[]? Image { get; set; }
 
         public List<Product.Core.Product> Products { get; set; }
+
+        public static Category GetStandardCategory(int id)
+        {
+            return new Category()
+            {
+                Id = new Guid(),
+                Name = $"Category {id}",
+                Description = $"Description of Category {id}",
+                Image = null,
+                Products = null!
+            };
+        }
     }
 }

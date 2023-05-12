@@ -8,6 +8,7 @@ import HeaderComp from "./GeneralComponents/HeaderComp";
 import BasketPage from "./Pages/Basket/BasketPage";
 import ProfileInfoPage from "./Pages/ProfileInfo/ProfileInfoPage";
 import ProfileOptionsPage from "./Pages/ProfileOptionsList/ProfileOptionsPage";
+import FavoritePage from "./Pages/ProfileInfo/Favorite/FavoritePage";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
             <Route path={"Basket"} element={<BasketPage />}/>
             <Route path={"Profile"} element={<ProfileOptionsPage />} />
             <Route path={"Profile/Info"} element={<ProfileInfoPage />}/>
+            <Route path={"Profile/Favorites"} element={<FavoritePage />}/>
             <Route path={"Auth"} element={<RegisterAuthPage />}/>
         </Route>
     </Routes>

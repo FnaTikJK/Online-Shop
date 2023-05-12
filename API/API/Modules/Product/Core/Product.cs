@@ -1,5 +1,4 @@
-﻿using API.DAL;
-using API.Modules.Category.Core;
+﻿using API.Modules.Account.Core;
 
 namespace API.Modules.Product.Core
 {
@@ -11,5 +10,7 @@ namespace API.Modules.Product.Core
         public double Price { get; set; }
         public HashSet<Category.Core.Category> Categories { get; set; }
         public byte[]? Image { get; set; }
+
+        public HashSet<Buyer> FavoritedBy { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace API.Modules.Product.Adapters
             return await Set.Include(e => e.Categories).ToListAsync();
         }
 
-        public async Task<Core.Product?> GetByIdASync(Guid id)
+        public async Task<Core.Product?> GetByIdAsync(Guid id)
         {
             return await Set.Include(e => e.Categories).FirstOrDefaultAsync(e => e.Id == id);
         }

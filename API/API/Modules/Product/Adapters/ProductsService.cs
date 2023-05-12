@@ -23,7 +23,7 @@ namespace API.Modules.Product.Adapters
 
         public async Task<Result<ProductDTO>> GetByIdAsync(Guid id)
         {
-            var existed = await productsRepository.GetByIdASync(id);
+            var existed = await productsRepository.GetByIdAsync(id);
             if (existed == null)
                 return Result.Fail<ProductDTO>("Такого продукта не сущесвтует");
 
@@ -39,7 +39,7 @@ namespace API.Modules.Product.Adapters
 
         public async Task<Result<bool>> UpdateAsync(ProductDTO productDto)
         {
-            var existed = productsRepository.GetByIdASync(productDto.Id);
+            var existed = productsRepository.GetByIdAsync(productDto.Id);
             if (existed == null)
                 return Result.Fail<bool>("Такого продукта не сущесвтует");
             mapper.Map(productDto, existed);

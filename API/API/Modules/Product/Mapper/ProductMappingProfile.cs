@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using API.Modules.Category.Mapper;
+﻿using API.Modules.Category.Mapper;
 using API.Modules.Product.DTO;
 
 namespace API.Modules.Product.Mapper

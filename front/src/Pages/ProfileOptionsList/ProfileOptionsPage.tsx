@@ -50,7 +50,7 @@ async function fetchProfileInfoAsync(navigate: any, setProfileInfo: any){
         if (e.response.status === 401 ||  e.response.status === 403)
             navigate("/Auth");
         else
-            alert(`Ошибка ${e.response.status}. ${e.response.text}`);
+            alert(`Ошибка ${e.response.status} (${e.response.statusText}). ${e.response.data}`);
     }
 }
 

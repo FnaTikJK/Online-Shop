@@ -31,14 +31,6 @@ namespace API.Modules.Profile
                 : BadRequest(response.Error);
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult> Post()
-        {
-            var a = 10;
-            return Ok();
-        }
-
         [HttpPut]
         public async Task<ActionResult> UpdateProfileAsync(ProfileDTO profileDto)
         {

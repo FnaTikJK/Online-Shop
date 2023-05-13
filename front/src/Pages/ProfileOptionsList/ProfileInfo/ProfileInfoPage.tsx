@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {ProfileDto, ProfilesRequester} from "../../APIHelper/Requesters/ProfilesRequester";
+import {ProfileDto, ProfilesRequester} from "../../../APIHelper/Requesters/ProfilesRequester";
 import {useNavigate} from "react-router-dom";
 import {AxiosResponse} from "axios";
 import {Menu} from 'antd';
-import {AccountsRequester} from "../../APIHelper/Requesters/AccountsRequester";
+import {AccountsRequester} from "../../../APIHelper/Requesters/AccountsRequester";
 
 const ProfileInfoPage = () => {
     let navigate = useNavigate();

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {ProductDto} from "../../../APIHelper/Requesters/ProductRequester";
+import {ProductShortDTO} from "../../../APIHelper/Requesters/ProductRequester";
 import {FavoriteRequester} from "../../../APIHelper/Requesters/FavoriteRequester";
 import ProductCardComp from "../../../GeneralComponents/ProductCard/ProductCardComp";
 
 const FavoritePage = () => {
-    const [products, setProducts] = useState<ProductDto[] | null>(null);
+    const [products, setProducts] = useState<ProductShortDTO[] | null>(null);
 
     useEffect(() => {
         GetFavoritesAsync();
@@ -13,8 +13,13 @@ const FavoritePage = () => {
     return (
         <>
             <h1>Избранное</h1>
-            {products?.map((p) =>
-                <ProductCardComp product={p}/>
+            {products === null ?
+                <>
+                    Loading...
+                </>
+                :
+                    products.map((p) =>
+                <ProductCardComp product={p} initIsFavorited={true} initCount={0}/>
             )}
         </>
     );

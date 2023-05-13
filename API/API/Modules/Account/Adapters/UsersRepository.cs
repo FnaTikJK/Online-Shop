@@ -17,7 +17,7 @@ namespace API.Modules.Account.Adapters
             return await Set.FirstOrDefaultAsync(e => e.Login == login);
         }
 
-        public async Task<Buyer?> GetUserByIdAsync(Guid id)
+        public async Task<Buyer?> GetBuyerByIdAsync(Guid id)
         {
             return await Set.FirstOrDefaultAsync(e => e.Id == id);
         }

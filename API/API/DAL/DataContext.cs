@@ -1,4 +1,5 @@
 ﻿using API.Modules.Account.Core;
+using API.Modules.Basket.Core;
 using API.Modules.Category.Core;
 using API.Modules.Favorites.Core;
 using API.Modules.Product.Core;
@@ -26,5 +27,6 @@ namespace API.DAL
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Favorite> Favorites => Set<Favorite>();
+        public DbSet<BasketItem> BasketItems => Set<BasketItem>();
     }
 }

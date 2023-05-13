@@ -30,7 +30,7 @@ namespace API.Modules.Favorites.Adapters
 
         public async Task AddFavoriteAsync(Guid buyerId, Guid productId)
         {
-            var buyer = await userRepository.GetUserByIdAsync(buyerId);
+            var buyer = await userRepository.GetBuyerByIdAsync(buyerId);
             var product = await productRepository.GetByIdAsync(productId);
 
             if (product != null && buyer != null

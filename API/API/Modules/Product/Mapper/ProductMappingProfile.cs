@@ -1,4 +1,5 @@
-﻿using API.Modules.Category.Mapper;
+﻿using API.Infrastructure;
+using API.Modules.Category.Mapper;
 using API.Modules.Product.DTO;
 using API.Modules.Product.Ports;
 using AutoMapper;
@@ -14,6 +15,28 @@ namespace API.Modules.Product.Mapper
                     opt.ConvertUsing<CategoriesMappingConverter, IEnumerable<Guid>>(src => src.Categories));
             CreateMap<Core.Product, ProductDTO>()
                 .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.Categories));
+
+            CreateMap<Guid, Core.Product>()
+                .ConvertUsing(typeof(ProductConverter));
+        }
+
+        private class ProductConverter : ITypeConverter<Guid, Core.Product>
+        {
+            private readonly IProductsRepository productsRepository;
+
+            public ProductConverter(IProductsRepository productsRepository)
+            {
+                this.productsRepository = productsRepository;
+            }
+
+            public Core.Product Convert(Guid source, Core.Product destination, ResolutionContext context)
+            {
+                var task = productsRepository.GetByIdAsync(source);
+                task.Wait();
+
+                return task.Result
+                       ?? throw new NotFoundException();
+            }
         }
     }
 

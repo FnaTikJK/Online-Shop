@@ -1,4 +1,4 @@
-﻿using API.Infrastructure;
+﻿using API.Infrastructure.Extensions;
 using API.Modules.Basket.DTO;
 using API.Modules.Basket.Ports;
 using Microsoft.AspNetCore.Authorization;

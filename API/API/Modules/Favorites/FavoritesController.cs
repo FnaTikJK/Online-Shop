@@ -1,4 +1,4 @@
-﻿using API.Infrastructure;
+﻿using API.Infrastructure.Extensions;
 using API.Modules.Favorites.DTO;
 using API.Modules.Favorites.Ports;
 using API.Modules.Search.DTO;

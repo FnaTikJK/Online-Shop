@@ -1,4 +1,4 @@
-﻿using API.Infrastructure;
+﻿using API.Infrastructure.Extensions;
 using API.Modules.Profile.DTO;
 using API.Modules.Profile.Ports;
 using Microsoft.AspNetCore.Authentication.Cookies;

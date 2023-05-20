@@ -9,12 +9,11 @@ interface IListItem{
     link: string,
 }
 
-const ProfileOptionsPage = () => {
+const ProfileOptionsListPage = () => {
     const navigate = useNavigate();
     const data: IListItem[] = [
         { text: "Управление аккаунтом", link: "/Profile/Info" },
         { text: "Мои заказы", link: "/Profile/Orders" },
-        { text: "Избранное", link: "/Profile/Favorites" },
     ];
     const [profileInfo, setProfileInfo] = useState<ProfileDto | null>(null);
 
@@ -54,4 +53,4 @@ async function fetchProfileInfoAsync(navigate: any, setProfileInfo: any){
     }
 }
 
-export default ProfileOptionsPage;
+export default ProfileOptionsListPage;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {ProductShortDTO} from "../../../APIHelper/Requesters/ProductRequester";
-import {FavoriteRequester} from "../../../APIHelper/Requesters/FavoriteRequester";
-import ProductCardComp from "../../../GeneralComponents/ProductCard/ProductCardComp";
+import {ProductShortDTO} from "../../APIHelper/Requesters/ProductRequester";
+import {FavoriteRequester} from "../../APIHelper/Requesters/FavoriteRequester";
+import ProductCardComp from "../../GeneralComponents/ProductCard/ProductCardComp";
 
 const FavoritePage = () => {
     const [products, setProducts] = useState<ProductShortDTO[] | null>(null);

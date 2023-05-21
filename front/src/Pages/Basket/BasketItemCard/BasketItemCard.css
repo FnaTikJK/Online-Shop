@@ -1,0 +1,30 @@
+.div-Main {
+    height: 160px;
+    width: 100%;
+}
+
+.div-Submain {
+    margin-top: 10%;
+    height: 100%;
+}
+
+img {
+    max-height: 80%;
+    float: left;
+    margin-left: 5%;
+    margin-right: 2%;
+}
+
+p {
+    font-size: 20px;
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}

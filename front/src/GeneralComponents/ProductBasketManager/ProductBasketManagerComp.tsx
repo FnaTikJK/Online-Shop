@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {PlusOutlined, MinusOutlined} from "@ant-design/icons";
-import {GUID} from "../../../Infrastructure/Guid";
+import {GUID} from "../../Infrastructure/Guid";
 import {Button} from "antd";
-import {BasketRequester} from "../../../APIHelper/Requesters/BasketRequester";
+import {BasketRequester} from "../../APIHelper/Requesters/BasketRequester";
 
 type Props = {
     id: GUID,

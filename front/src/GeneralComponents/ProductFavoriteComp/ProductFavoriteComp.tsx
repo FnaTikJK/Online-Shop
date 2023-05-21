@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {HeartOutlined, HeartFilled} from "@ant-design/icons";
-import {GUID} from "../../../Infrastructure/Guid";
-import {FavoriteRequester} from "../../../APIHelper/Requesters/FavoriteRequester";
+import {GUID} from "../../Infrastructure/Guid";
+import {FavoriteRequester} from "../../APIHelper/Requesters/FavoriteRequester";
 
 type Props = {
     id: GUID,

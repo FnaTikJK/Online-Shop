@@ -8,18 +8,22 @@
     height: 100%;
 }
 
-img {
+.Img {
     max-height: 80%;
     float: left;
     margin-left: 5%;
     margin-right: 2%;
 }
 
-p {
+.ProductName {
     font-size: 20px;
 }
 
-hr {
+.Price {
+
+}
+
+.Separator {
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0;

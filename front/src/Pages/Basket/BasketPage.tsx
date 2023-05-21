@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {BasketItemDTO, BasketRequester} from "../../APIHelper/Requesters/BasketRequester";
 import {NavigateFunction, useNavigate} from "react-router-dom";
-import BasketItemCard from "../../GeneralComponents/BasketItemCard/BasketItemCard";
+import BasketItemCard from "./BasketItemCard/BasketItemCard";
 import "./BasketPage.css"
 import {Button} from "antd";
 

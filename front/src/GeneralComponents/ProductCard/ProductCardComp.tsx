@@ -1,8 +1,8 @@
 import React from 'react';
-import {Card} from "antd";
 import ProductFavoriteComp from "../ProductFavoriteComp/ProductFavoriteComp";
 import ProductBasketManagerComp from "../ProductBasketManager/ProductBasketManagerComp";
 import {ProductShortDTO} from "../../APIHelper/Requesters/ProductRequester";
+import "./ProductCardComp.css"
 
 type Props ={
     product: ProductShortDTO,
@@ -11,30 +11,18 @@ type Props ={
 }
 
 const ProductCardComp = ({product, initIsFavorited, initCount}: Props) => {
-    const urlNoImage = "https://xphoto.name/uploads/posts/2021-12/1639200680_20-xphoto-name-p-cp-link-porn-jailbait-34.jpg";
+    const urlNoImage = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
 
     return (
-        <>
-            <Card
-                style={{ width: "100%" }}
-                cover={
-                    <img
-                        alt={product.name}
-                        src={urlNoImage}
-                    />
-                }
-                actions={[
-                    <ProductFavoriteComp id={product.id} initIsFavorited={initIsFavorited} />,
-                    <ProductBasketManagerComp id={product.id} initCount={initCount} />
-                ]}
-            >
-                <Card.Meta
-                    title={product.name}
-                    description={product.categories.map((c) =>
-                        <button>{c.name}</button>)}
-                />
-            </Card>
-        </>
+        <div className={"Card-container"}>
+            <div className={"Img-container"}>
+                <img src={urlNoImage} className={"Img"}/>
+            </div>
+            <div className={"Favorite-Button"}><ProductFavoriteComp id={product.id} initIsFavorited={true} /></div>
+            <p>{product.name}</p>
+            <h4>{product.price} ₽</h4>
+            <ProductBasketManagerComp id={product.id} initCount={0} />
+        </div>
     );
 };
 

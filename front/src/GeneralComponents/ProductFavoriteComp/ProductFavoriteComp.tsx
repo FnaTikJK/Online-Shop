@@ -14,8 +14,8 @@ const ProductFavoriteComp = ({id, initIsFavorited}: Props) => {
     return (
         <>
             {isFavorited ?
-                <HeartFilled onClick={()=>RemoveFromFavorite()}/>
-                : <HeartOutlined onClick={()=>AddToFavorite()}/>
+                <HeartFilled onClick={()=>RemoveFromFavorite()} style={{verticalAlign: 'middle', margin:"4.5px"}}/>
+                : <HeartOutlined onClick={()=>AddToFavorite()} style={{verticalAlign: 'middle', margin:"4.5px"}}/>
             }
         </>
     );

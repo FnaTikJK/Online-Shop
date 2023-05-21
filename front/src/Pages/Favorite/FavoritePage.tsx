@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ProductShortDTO} from "../../APIHelper/Requesters/ProductRequester";
 import {FavoriteRequester} from "../../APIHelper/Requesters/FavoriteRequester";
 import ProductCardComp from "../../GeneralComponents/ProductCard/ProductCardComp";
-import "./FavoritePage.css"
+import styles from "./FavoritePage.module.css"
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
 async function GetFavoritesAsync(navigate: NavigateFunction): Promise<ProductShortDTO[] | undefined>{
@@ -32,14 +32,16 @@ const FavoritePage = () => {
 
     if (products === null)
         return (<>
-            <h1>Избранное</h1>
-            <>Загрузка...</>
+            <h1 className={styles.Centered}>Избранное</h1>
+            <div className={styles.Centered}>Загрузка...</div>
         </>);
 
     return (
         <>
-            <h1>Избранное</h1>
-            {DrawProducts(products)}
+            <h1 className={styles.Centered}>Избранное</h1>
+            <div className={styles.ProductsContainer}>
+                {DrawProducts(products)}
+            </div>
         </>
     );
 

@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {BasketItemDTO, BasketRequester} from "../../APIHelper/Requesters/BasketRequester";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import BasketItemCard from "./BasketItemCard/BasketItemCard";
-import "./BasketPage.css"
+import styles from "./BasketPage.module.css"
 import {Button} from "antd";
 
 async function GetItemsAsync(navigate: NavigateFunction): Promise<BasketItemDTO[] | undefined>{
@@ -20,7 +20,7 @@ async function GetItemsAsync(navigate: NavigateFunction): Promise<BasketItemDTO[
 
 function DrawItems(items: BasketItemDTO[]): JSX.Element | JSX.Element[] {
     return items.length === 0 ?
-        (<h2>Корзина пуста</h2>)
+        (<h2 className={styles.Centered}>Корзина пуста</h2>)
         :
         items.map((item) =>
             <BasketItemCard item={item} />);
@@ -36,21 +36,21 @@ const BasketPage = () => {
     })()}, []);
 
     if (items === null)
-        return (<><h1>Корзина</h1>
-            <div>Загрузка...</div></>);
+        return (<><h1 className={styles.Centered}>Корзина</h1>
+            <div className={styles.Centered}>Загрузка...</div></>);
 
     return (
         <>
-            <h1>Корзина</h1>
+            <h1 className={styles.Centered}>Корзина</h1>
             {DrawItems(items)}
-            <div className={"div-Summary"}>
-                <h2 className={"Summary"}>
+            <div className={styles.DivSummary}>
+                <h2 className={styles.Summary}>
                     Итого: {items
                         .map(i => i.product.price * i.count)
                         .reduce((total, value) => total + value)} ₽
                 </h2>
             </div>
-            <Button className={"offer-button"}>ОФОРМИТЬ ЗАКАЗ</Button>
+            <Button className={styles.OfferButton}>ОФОРМИТЬ ЗАКАЗ</Button>
         </>
     );
 };

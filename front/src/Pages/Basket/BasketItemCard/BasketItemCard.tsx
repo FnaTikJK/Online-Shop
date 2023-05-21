@@ -3,14 +3,13 @@ import ProductBasketManagerComp from "../../../GeneralComponents/ProductBasketMa
 import ProductFavoriteComp from "../../../GeneralComponents/ProductFavoriteComp/ProductFavoriteComp";
 import styles from "./BasketItemCard.module.css"
 import {BasketItemDTO} from "../../../APIHelper/Requesters/BasketRequester";
+import {urlNoImage} from "../../../Constants";
 
 type Props ={
     item: BasketItemDTO,
 }
 
 const BasketItemCard = ({item}: Props) => {
-    const urlNoImage = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
-
     return (
         <div className={styles.DivMain}>
             <div className={styles.DivSubName}>

@@ -18,8 +18,12 @@ export class BasketRequester{
         return await axios.get<BasketItemDTO[]>(ApiRouteBuilder.Baskets.Build());
     }
 
-    public static async UpdateOrAddItemAsync(item: BasketItemAddDTO): Promise<AxiosResponse>{
-        return await axios.put(ApiRouteBuilder.Baskets.Build(), {
+    public static async GetItemsCountAsync(): Promise<AxiosResponse<number>>{
+        return await axios.get<number>(ApiRouteBuilder.Baskets.With("Count").Build());
+    }
+
+    public static async UpdateOrAddItemAsync(item: BasketItemAddDTO): Promise<AxiosResponse<number>>{
+        return await axios.put<number>(ApiRouteBuilder.Baskets.Build(), {
             productId: item.productId,
             count: item.count,
         });

@@ -4,7 +4,7 @@
     {
         public IEnumerable<Product.Core.Product> GetFavoriteProducts(Guid buyerId);
         public Task AddFavoriteAsync(Guid buyerId, Guid productId);
-        public Task RemoveFavoriteAsync(Guid productId);
+        public Task RemoveFavoriteAsync(Guid buyerId, Guid productId);
         public Task SaveChangesAsync();
     }
 }

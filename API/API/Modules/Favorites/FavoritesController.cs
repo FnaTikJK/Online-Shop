@@ -24,29 +24,32 @@ namespace API.Modules.Favorites
         {
             var response = favoritesService.GetFavoriteProducts(Guid.Parse(User.GetId()));
 
-            return response.IsSuccess ?
-            Ok(response.Value) : BadRequest(response.Error);
+            return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+        }
+
+        [HttpGet("Count")]
+        public async Task<ActionResult<IEnumerable<ProductShortDTO>>> GetFavoritesCountAsync()
+        {
+            var response = favoritesService.GetFavoriteProducts(Guid.Parse(User.GetId()));
+
+            return response.IsSuccess ? Ok(response.Value.Count()) : BadRequest(response.Error);
         }
 
         [HttpPost]
         [Produces("application/json")]
-        public async Task<ActionResult> AddFavoriteAsync([FromBody]AddFavoriteDTO addFavoriteDto)
+        public async Task<ActionResult> AddFavoriteAsync([FromBody] AddFavoriteDTO addFavoriteDto)
         {
             var response = await favoritesService.AddFavoriteAsync(Guid.Parse(User.GetId()), addFavoriteDto.ProductId);
-          
-            return response.IsSuccess ?
-                Ok(response.Value) : BadRequest(response.Error);
+
+            return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
         }
 
         [HttpDelete("{productId:Guid}")]
         public async Task<ActionResult> RemoveFavoriteAsync(Guid productId)
         {
-            var response = await favoritesService.RemoveFavoriteAsync(productId);
+            var response = await favoritesService.RemoveFavoriteAsync(Guid.Parse(User.GetId()), productId);
 
-            return response.IsSuccess ?
-                Ok(response.Value) : BadRequest(response.Error);
+            return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
         }
     }
-
-
 }

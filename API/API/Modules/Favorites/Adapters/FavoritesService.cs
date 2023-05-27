@@ -1,4 +1,5 @@
 ﻿using API.Infrastructure;
+using API.Modules.Account.Core;
 using API.Modules.Favorites.Ports;
 using API.Modules.Search.DTO;
 using AutoMapper;
@@ -23,18 +24,20 @@ namespace API.Modules.Favorites.Adapters
             return Result.Ok(mapper.Map<IEnumerable<ProductShortDTO>>(products));
         }
 
-        public async Task<Result<bool>> AddFavoriteAsync(Guid buyerId, Guid productId)
+        public async Task<Result<int>> AddFavoriteAsync(Guid buyerId, Guid productId)
         {
             await favoriteRepository.AddFavoriteAsync(buyerId, productId);
             await favoriteRepository.SaveChangesAsync();
-            return Result.Ok(true);
+            var count = favoriteRepository.GetFavoriteProducts(buyerId).Count();
+            return Result.Ok(count);
         }
 
-        public async Task<Result<bool>> RemoveFavoriteAsync(Guid productId)
+        public async Task<Result<int>> RemoveFavoriteAsync(Guid buyerId, Guid productId)
         {
-            await favoriteRepository.RemoveFavoriteAsync(productId);
+            await favoriteRepository.RemoveFavoriteAsync(buyerId, productId);
             await favoriteRepository.SaveChangesAsync();
-            return Result.Ok(true);
+            var count = favoriteRepository.GetFavoriteProducts(buyerId).Count();
+            return Result.Ok(count);
         }
     }
 }

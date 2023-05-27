@@ -3,7 +3,7 @@ import ProductFavoriteComp from "../ProductFavoriteComp/ProductFavoriteComp";
 import ProductBasketManagerComp from "../ProductBasketManager/ProductBasketManagerComp";
 import {ProductShortDTO} from "../../APIHelper/Requesters/ProductRequester";
 import styles from "./ProductCardComp.module.css"
-import {urlNoImage} from "../../Constants";
+import {urlNoImage} from "../../CommonResources";
 
 type Props ={
     product: ProductShortDTO,

@@ -3,7 +3,7 @@ import ProductBasketManagerComp from "../../../GeneralComponents/ProductBasketMa
 import ProductFavoriteComp from "../../../GeneralComponents/ProductFavoriteComp/ProductFavoriteComp";
 import styles from "./BasketItemCard.module.css"
 import {BasketItemDTO} from "../../../APIHelper/Requesters/BasketRequester";
-import {urlNoImage} from "../../../Constants";
+import {urlNoImage} from "../../../CommonResources";
 
 type Props ={
     item: BasketItemDTO,

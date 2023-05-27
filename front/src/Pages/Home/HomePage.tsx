@@ -24,18 +24,18 @@ const HomePage = () => {
 
     if (products === null)
         return (
-            <>
+            <div className={styles.DivMain}>
                 Loading...
-            </>
+            </div>
         );
 
     return (
-        <>
+        <div className={styles.DivMain}>
             {products.map((p) =>
             <ProductCardComp product={p} initIsFavorited={false} initCount={0}/>
             )}
             <div className={styles.DivEnd}></div>
-        </>
+        </div>
     );
 
 

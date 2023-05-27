@@ -8,11 +8,15 @@ export class FavoriteRequester{
         return await axios.get<ProductDto[]>(ApiRouteBuilder.Favorites.Build());
     }
 
-    public static async AddFavoriteAsync(id: GUID): Promise<AxiosResponse>{
+    public static async GetFavoritesCountAsync(): Promise<AxiosResponse<number>>{
+        return await axios.get<number>(ApiRouteBuilder.Favorites.With("Count").Build());
+    }
+
+    public static async AddFavoriteAsync(id: GUID): Promise<AxiosResponse<number>>{
         return await axios.post(ApiRouteBuilder.Favorites.Build(), { productId: id });
     }
 
-    public static async RemoveFavoriteAsync(id: GUID): Promise<AxiosResponse>{
+    public static async RemoveFavoriteAsync(id: GUID): Promise<AxiosResponse<number>>{
         return await axios.delete(ApiRouteBuilder.Favorites.With(id).Build());
     }
 }

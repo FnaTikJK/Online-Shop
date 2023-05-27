@@ -29,6 +29,16 @@ namespace API.Modules.Basket
                 : BadRequest(response.Error);
         }
 
+        [HttpGet("Count")]
+        public ActionResult<IEnumerable<BasketItemDTO>> GetBasketCount()
+        {
+            var response = basketService.GetBasketCount(Guid.Parse(User.GetId()));
+
+            return response.IsSuccess
+                ? Ok(response.Value)
+                : BadRequest(response.Error);
+        }
+
         [HttpPut]
         public async Task<ActionResult> UpdateOrAddItemToBasketAsync(BasketItemAddDTO addDto)
         {

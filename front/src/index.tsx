@@ -9,6 +9,7 @@ export const baseUrl = 'https://localhost:7055/api/';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
     <BrowserRouter>
         <App />

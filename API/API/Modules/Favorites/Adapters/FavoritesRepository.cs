@@ -40,9 +40,9 @@ namespace API.Modules.Favorites.Adapters
             }
         }
 
-        public async Task RemoveFavoriteAsync(Guid productId)
+        public async Task RemoveFavoriteAsync(Guid buyerId, Guid productId)
         {
-            var favorite = await Set.FirstOrDefaultAsync(e => e.Product.Id == productId);
+            var favorite = await Set.FirstOrDefaultAsync(e => e.Product.Id == productId && e.Buyer.Id == buyerId);
 
             if (favorite != null)
                 Set.Remove(favorite);

@@ -25,7 +25,12 @@ namespace API.Modules.Basket.Adapters
             return Result.Ok(mapper.Map<IEnumerable<BasketItemDTO>>(basketRepository.GetAllByBuyer(buyerId)));
         }
 
-        public async Task<Result<bool>> UpdateOrAddItemAsync(Guid buyerId, BasketItemAddDTO addDto)
+        public Result<int> GetBasketCount(Guid buyerId)
+        {
+            return Result.Ok(basketRepository.GetAllByBuyer(buyerId).GroupBy(e => e.Product).Count());
+        }
+
+        public async Task<Result<int>> UpdateOrAddItemAsync(Guid buyerId, BasketItemAddDTO addDto)
         {
             var existed = await basketRepository.GetByBuyerAndProduct(buyerId, addDto.ProductId);
 
@@ -45,15 +50,15 @@ namespace API.Modules.Basket.Adapters
                 await basketRepository.SaveChangesAsync();
             }
 
-            return Result.Ok(true);
+            return GetBasketCount(buyerId);
         }
 
-        public async Task<Result<bool>> RemoveByProductAndBuyerAsync(Guid buyerId, Guid productId)
+        public async Task<Result<int>> RemoveByProductAndBuyerAsync(Guid buyerId, Guid productId)
         {
             await basketRepository.RemoveByProductAndBuyerAsync(buyerId, productId);
             await basketRepository.SaveChangesAsync();
 
-            return Result.Ok(true);
+            return GetBasketCount(buyerId);
         }
     }
 }

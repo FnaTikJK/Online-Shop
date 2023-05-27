@@ -9,12 +9,11 @@ interface IListItem{
     link: string,
 }
 
-const ProfileOptionsPage = () => {
+const ProfileOptionsListPage = () => {
     const navigate = useNavigate();
     const data: IListItem[] = [
         { text: "Управление аккаунтом", link: "/Profile/Info" },
         { text: "Мои заказы", link: "/Profile/Orders" },
-        { text: "Избранное", link: "/Profile/Favorites" },
     ];
     const [profileInfo, setProfileInfo] = useState<ProfileDto | null>(null);
 
@@ -50,8 +49,8 @@ async function fetchProfileInfoAsync(navigate: any, setProfileInfo: any){
         if (e.response.status === 401 ||  e.response.status === 403)
             navigate("/Auth");
         else
-            alert(`Ошибка ${e.response.status}. ${e.response.text}`);
+            alert(`Ошибка ${e.response.status} (${e.response.statusText}). ${e.response.data}`);
     }
 }
 
-export default ProfileOptionsPage;
+export default ProfileOptionsListPage;

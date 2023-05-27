@@ -1,0 +1,27 @@
+.Centered {
+    text-align: center;
+}
+
+.DivSummary {
+    background-color: #f5f5f5;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Summary {
+    text-align: left;
+    margin-left: 5%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.OfferButton {
+    width: 90%;
+    height: 50px;
+    margin-left: 5%;
+    margin-top: 2%;
+    font-size: 16px;
+    color: white;
+    background-color: #1551e5;
+}

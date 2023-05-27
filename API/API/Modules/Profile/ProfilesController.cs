@@ -1,4 +1,4 @@
-﻿using API.Infrastructure;
+﻿using API.Infrastructure.Extensions;
 using API.Modules.Profile.DTO;
 using API.Modules.Profile.Ports;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -29,14 +29,6 @@ namespace API.Modules.Profile
             return response.IsSuccess
                 ? Ok(response.Value)
                 : BadRequest(response.Error);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult> Post()
-        {
-            var a = 10;
-            return Ok();
         }
 
         [HttpPut]

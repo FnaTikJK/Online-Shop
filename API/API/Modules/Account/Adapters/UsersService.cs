@@ -44,8 +44,8 @@ namespace API.Modules.Account.Adapters
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, authDto.Login),
-                new Claim(ClaimTypes.Name, existed.FullName),
+                new Claim(ClaimTypes.NameIdentifier, existed.Id.ToString()),
+                new Claim(ClaimTypes.Name, existed.Login),
             };
             return Result.Ok(jwtService.CreateToken(claims));
         }

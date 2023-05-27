@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {Button, Input, Form} from "antd";
 import {AccountsRequester} from "../../../APIHelper/Requesters/AccountsRequester";
 import {useNavigate} from "react-router-dom";
-import {AxiosResponse} from "axios/index";
-import {ProfileDto, ProfilesRequester} from "../../../APIHelper/Requesters/ProfilesRequester";
 
 const LoginComp = () => {
     const navigate = useNavigate();

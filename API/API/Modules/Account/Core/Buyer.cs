@@ -15,6 +15,8 @@ namespace API.Modules.Account.Core
         public string? PhoneNumber { get; set; }
 
 
+        public HashSet<Product.Core.Product> Favorites { get; set; }
+
         [NotMapped]
         public string FullName => SecondName + FirstName + (ThirdName ?? "");
     }

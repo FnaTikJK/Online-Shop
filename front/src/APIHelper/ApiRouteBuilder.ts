@@ -13,6 +13,20 @@ export class ApiRouteBuilder {
         Own: ApiRouteBuilder.ProfilesBase.With("Own"),
     }
 
+    public static Products = ApiRouteBuilder.BaseUrl.With("Products");
+
+    public static Favorites = ApiRouteBuilder.BaseUrl.With("Favorites");
+
+    public static Baskets = ApiRouteBuilder.BaseUrl.With("Baskets");
+
+    public static Search = ApiRouteBuilder.BaseUrl.With("Search");
+
+
+
+
+
+
+
     private route: string;
     private queryParams: { [key:string]: string } = {};
     private constructor(route: string) {

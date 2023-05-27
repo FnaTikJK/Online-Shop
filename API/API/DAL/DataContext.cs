@@ -1,5 +1,10 @@
 ﻿using API.Modules.Account.Core;
+using API.Modules.Basket.Core;
+using API.Modules.Category.Core;
+using API.Modules.Favorites.Core;
+using API.Modules.Product.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace API.DAL
 {
@@ -7,15 +12,21 @@ namespace API.DAL
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            //Init();
+            //DataInitiator.InitDb(this);
         }
 
-        private void Init()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            modelBuilder.Entity<Buyer>()
+                .HasMany(e => e.Favorites)
+                .WithMany(e => e.FavoritedBy)
+                .UsingEntity<Favorite>();
         }
 
         public DbSet<Buyer> Buyers => Set<Buyer>();
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<Favorite> Favorites => Set<Favorite>();
+        public DbSet<BasketItem> BasketItems => Set<BasketItem>();
     }
 }

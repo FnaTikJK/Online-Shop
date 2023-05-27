@@ -10,9 +10,9 @@ const HeaderComp = () => {
         return (
             <>
                 <Search
-                    placeholder={"input"}
+                    placeholder={"Поиск"}
                     allowClear
-                    enterButton={"Search"}
+                    enterButton={"Поиск"}
                     size={"large"}
                     suffix={<Button onClick={() => setPageState("Categories")}>Cat</Button>}
                 />

@@ -8,32 +8,34 @@ import {BasketCountContext} from "../../CommonResources";
 type Props = {
     id: GUID,
     initCount: number,
+    setSummaryFunc?: (delta: number) => void
 }
 
-const ProductBasketManagerComp = ({id, initCount}: Props) => {
+const ProductBasketManagerComp = ({id, initCount, setSummaryFunc}: Props) => {
     const [count, setCount] = useState<number>(initCount);
     const basketCountType = useContext(BasketCountContext);
 
     return count > 0 ?
         (<>
-            <MinusOutlined onClick={() => ChangeCountInBasket(count - 1)}></MinusOutlined>
+            <MinusOutlined onClick={() => ChangeCountInBasket(count, count - 1)}></MinusOutlined>
             {count}
-            <PlusOutlined onClick={() => ChangeCountInBasket(count + 1)}></PlusOutlined>
+            <PlusOutlined onClick={() => ChangeCountInBasket(count, count + 1)}></PlusOutlined>
         </>)
         :
         (<>
-            <Button onClick={() => ChangeCountInBasket(count + 1)}>Добавить в корзину</Button>
+            <Button onClick={() => ChangeCountInBasket(count, count + 1)}>Добавить в корзину</Button>
         </>);
 
-    async function ChangeCountInBasket(count: number){
+    async function ChangeCountInBasket(oldCount: number, newCount: number, ){
         try {
-
             let response = await BasketRequester.UpdateOrAddItemAsync({
                 productId: id,
-                count: count
+                count: newCount
             })
             basketCountType?.setCountInBasket(response.data);
-            setCount(count);
+            setCount(newCount);
+            if (setSummaryFunc)
+                setSummaryFunc(newCount - oldCount);
         }
         catch(e) {
             alert(e);

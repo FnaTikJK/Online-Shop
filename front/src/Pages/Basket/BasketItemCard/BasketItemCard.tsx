@@ -7,9 +7,17 @@ import {urlNoImage} from "../../../CommonResources";
 
 type Props ={
     item: BasketItemDTO,
+    summary: number,
+    setSummary: React.Dispatch<React.SetStateAction<number>>
 }
 
-const BasketItemCard = ({item}: Props) => {
+const SetSummaryFunc = (price: number, summary: number, setSummary: React.Dispatch<React.SetStateAction<number>>) => {
+    return (delta: number) => {
+        setSummary(summary + delta * price);
+    }
+}
+
+const BasketItemCard = ({item, summary, setSummary}: Props) => {
     const url = "Products/" + item.product.id;
 
     return (
@@ -21,7 +29,9 @@ const BasketItemCard = ({item}: Props) => {
                 <div>
                     <a href={url}><p className={styles.ProductName}>{item.product.name}</p></a>
                     <h3 className={styles.Price}>{item.product.price} ₽</h3>
-                    <ProductBasketManagerComp id={item.product.id} initCount={item.count} />
+                    <ProductBasketManagerComp
+                        id={item.product.id} initCount={item.count}
+                        setSummaryFunc={SetSummaryFunc(item.product.price, summary, setSummary)}/>
                     <ProductFavoriteComp id={item.product.id} initIsFavorited={false} />
                 </div>
             </div>

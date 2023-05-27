@@ -25,7 +25,7 @@ export class ProductRequester{
         return await axios.get<ProductDto[]>(ApiRouteBuilder.Products.Build());
     }
 
-    public static async GetProductByIdAsync(id: GUID): Promise<ProductDto>{
-        throw new Error("NotImplemented");
+    public static async GetProductByIdAsync(id: GUID): Promise<AxiosResponse<ProductDto>>{
+        return await axios.get<ProductDto>(ApiRouteBuilder.Products.With(id).Build());
     }
 }

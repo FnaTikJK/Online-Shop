@@ -9,6 +9,7 @@ import BasketPage from "./Pages/Basket/BasketPage";
 import ProfileInfoPage from "./Pages/ProfileOptionsList/ProfileInfo/ProfileInfoPage";
 import ProfileOptionsListPage from "./Pages/ProfileOptionsList/ProfileOptionsListPage";
 import FavoritePage from "./Pages/Favorite/FavoritePage";
+import ProductPage from "./Pages/Product/ProductPage";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
         <Route path={"/"} element={<FooterComp />}>
             <Route path={"/"} element={<HeaderComp />}>
                 <Route index element={<HomePage/>}/>
+                <Route path={"/Products/:id"} element={<ProductPage />}/>
             </Route>
             <Route path={"Basket"} element={<BasketPage />}/>
             <Route path={"Favorites"} element={<FavoritePage />}/>

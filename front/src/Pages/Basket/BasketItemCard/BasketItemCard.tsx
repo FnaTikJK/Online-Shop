@@ -10,13 +10,16 @@ type Props ={
 }
 
 const BasketItemCard = ({item}: Props) => {
+    const url = "Products/" + item.product.id;
+
     return (
         <div className={styles.DivMain}>
             <div className={styles.DivSubName}>
-                <img className={styles.Img} alt={item.product.name}
-                     src={urlNoImage}/>
+                <a href={url}>
+                    <img className={styles.Img} alt={item.product.name}
+                        src={urlNoImage}/></a>
                 <div>
-                    <p className={styles.ProductName}>{item.product.name}</p>
+                    <a href={url}><p className={styles.ProductName}>{item.product.name}</p></a>
                     <h3 className={styles.Price}>{item.product.price} ₽</h3>
                     <ProductBasketManagerComp id={item.product.id} initCount={item.count} />
                     <ProductFavoriteComp id={item.product.id} initIsFavorited={false} />

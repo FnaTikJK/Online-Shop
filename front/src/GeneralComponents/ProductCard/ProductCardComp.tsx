@@ -12,15 +12,17 @@ type Props ={
 }
 
 const ProductCardComp = ({product, initIsFavorited, initCount}: Props) => {
+    const url = "Products/" + product.id;
+
     return (
         <div className={styles.CardContainer}>
             <div className={styles.ImgContainer}>
-                <img src={urlNoImage} className={styles.Img}/>
+                <a href={url}><img src={urlNoImage} className={styles.Img}/></a>
             </div>
             <div className={styles.FavoriteButton}>
                 <ProductFavoriteComp id={product.id} initIsFavorited={initIsFavorited} />
             </div>
-            <p className={styles.Name}>{product.name}</p>
+            <a href={url}><p className={styles.Name}>{product.name}</p></a>
             <h4 className={styles.Price}>{product.price} ₽</h4>
             <ProductBasketManagerComp id={product.id} initCount={initCount} />
         </div>

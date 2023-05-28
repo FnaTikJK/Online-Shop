@@ -15,13 +15,13 @@ namespace API.Modules.Search.Adapters
         {
             var query = Set.AsNoTracking()
                 .Include(p => p.Categories)
-                .Where(p => p.Name.Contains(searchRequest.Text)) //p.Name.Contains(searchRequest.Text)
-                .Where(p => searchRequest.CategoriesId == null
-                    || p.Categories.Count(c => searchRequest.CategoriesId.Contains(c.Id)) == searchRequest.CategoriesId.Count);
+                .Where(p => p.Name.Contains(searchRequest.text)) //p.Name.Contains(searchRequest.text)
+                .Where(p => searchRequest.categoriesId == null
+                    || p.Categories.Count(c => searchRequest.categoriesId.Contains(c.Id)) == searchRequest.categoriesId.Count);
             var totalCount = query.Count();
             var result = await query
-                .Skip(searchRequest.PageSize * (searchRequest.PageNumber - 1))
-                .Take(searchRequest.PageSize)
+                .Skip(searchRequest.pageSize * (searchRequest.pageNumber - 1))
+                .Take(searchRequest.pageSize)
                 .ToListAsync();
 
             return (result, totalCount);

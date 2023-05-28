@@ -5,10 +5,10 @@ import {ProductShortDTO} from "./ProductRequester";
 
 
 export interface SearchRequestDTO{
-    text: string,
+    text?: string,
     categoriesId?: GUID[],
-    pageSize: number,
-    pageNumber: number,
+    pageSize?: number,
+    pageNumber?: number,
 }
 
 export interface SearchResponseDTO{
@@ -19,10 +19,13 @@ export interface SearchResponseDTO{
 }
 
 export class SearchRequester {
-    public static async SearchAsync(request: SearchRequestDTO): Promise<AxiosResponse<SearchResponseDTO[]>>{
-        return await axios.get<SearchResponseDTO[]>(ApiRouteBuilder.Search.Build(), {
+    public static async SearchAsync(request: SearchRequestDTO): Promise<AxiosResponse<SearchResponseDTO>>{
+        return await axios.get<SearchResponseDTO>(ApiRouteBuilder.Search.Build(), {
             params: {
-                text: request.text
+                text: request.text,
+                categoriesId: request.categoriesId,
+                pageSize: request.pageSize,
+                pageNumber: request.pageNumber
             }
         })
     }

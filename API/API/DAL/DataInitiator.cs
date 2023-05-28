@@ -11,8 +11,8 @@ namespace API.DAL
             dataContext.Database.EnsureDeleted();
             dataContext.Database.EnsureCreated();
 
-            AddCategories(dataContext, 10);
-            AddProducts(dataContext, 10);
+            AddCategories(dataContext, 50);
+            AddProducts(dataContext, 25);
             dataContext.SaveChanges();
         }
 

@@ -24,8 +24,8 @@ namespace API.Modules.Search.Adapters
             return Result.Ok(new SearchResponse()
             {
                 Items = mapper.Map<IEnumerable<ProductShortDTO>>(result.items),
-                PageNumber = request.PageNumber,
-                PageSize = request.PageSize,
+                PageNumber = request.pageNumber,
+                PageSize = request.pageSize,
                 TotalCount = result.totalCount
             });
         }

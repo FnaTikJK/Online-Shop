@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Modules.Product
 {
-    [Route("api/[controller]")]
+    [Route("back/api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {

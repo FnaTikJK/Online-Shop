@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Modules.Basket
 {
-    [Route("api/[controller]")]
+    [Route("back/api/[controller]")]
     [ApiController]
     [Authorize]
     public class BasketsController : ControllerBase

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Modules.Search
 {
-    [Route("api/[controller]")]
+    [Route("back/api/[controller]")]
     [ApiController]
     public class SearchController : ControllerBase
     {

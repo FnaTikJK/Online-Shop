@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Modules
 {
-    [Route("api/[controller]")]
+    [Route("back/api/[controller]")]
     [ApiController]
     public class DatabaseController : ControllerBase
     {

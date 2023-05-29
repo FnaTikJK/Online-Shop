@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Modules.Favorites
 {
-    [Route("api/[controller]")]
+    [Route("back/api/[controller]")]
     [ApiController]
     [Authorize]
     public class FavoritesController : ControllerBase

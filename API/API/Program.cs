@@ -42,8 +42,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.EnableSensitiveDataLogging(true);
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>

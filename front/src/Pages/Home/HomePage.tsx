@@ -54,14 +54,17 @@ const HomePage = () => {
 
     return (
         <div className={styles.DivMain}>
-            <FiltersComp />
+            <div className={styles.DivFilters}>
+                <FiltersComp />
+            </div>
 
-            {searchResponse?.items?.map((p) =>
-            <ProductCardComp product={p} initIsFavorited={false} initCount={0}/>
-            )}
-            Номер стр = {searchResponse?.pageNumber}
-            Всего = {searchResponse?.totalCount}
-            <div className={styles.DivEnd}></div>
+            <div className={styles.DivProducts}>
+                {searchResponse?.items?.map((p) =>
+                <ProductCardComp product={p} initIsFavorited={false} initCount={0}/>
+                )}
+                Номер стр = {searchResponse?.pageNumber}
+                Всего = {searchResponse?.totalCount}
+            </div>
         </div>
     );
 

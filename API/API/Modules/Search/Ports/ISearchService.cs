@@ -7,6 +7,7 @@ namespace API.Modules.Search.Ports
     public interface ISearchService
     {
         public Task<Result<SearchResponse>> SearchAsync(SearchRequest request);
+        public Task<Result<SearchResponse>> SearchAuthAsync(Guid buyerId, SearchRequest request);
         public Task<Result<FiltersDTO>> GetFilters();
     }
 }

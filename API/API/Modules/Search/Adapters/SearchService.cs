@@ -1,5 +1,7 @@
 ﻿using API.Infrastructure;
+using API.Modules.Basket.Ports;
 using API.Modules.Category.Ports;
+using API.Modules.Favorites.Ports;
 using API.Modules.Product.Ports;
 using API.Modules.Search.Core;
 using API.Modules.Search.DTO;
@@ -14,14 +16,19 @@ namespace API.Modules.Search.Adapters
         private readonly ISearchRepository searchRepository;
         private readonly ICategoriesService categoriesService;
         private readonly IProductsService productsService;
+        private readonly IBasketService basketService;
+        private readonly IFavoritesService favoritesService;
 
         public SearchService(ISearchRepository searchRepository, IMapper mapper, 
-            IProductsService productsService, ICategoriesService categoriesService)
+            IProductsService productsService, ICategoriesService categoriesService, 
+            IFavoritesService favoritesService, IBasketService basketService)
         {
             this.searchRepository = searchRepository;
             this.mapper = mapper;
             this.productsService = productsService;
             this.categoriesService = categoriesService;
+            this.favoritesService = favoritesService;
+            this.basketService = basketService;
         }
 
         public async Task<Result<SearchResponse>> SearchAsync(SearchRequest request)
@@ -34,6 +41,26 @@ namespace API.Modules.Search.Adapters
                 PageNumber = request.pageNumber,
                 PageSize = request.pageSize,
                 TotalPageCount = result.totalCount
+            });
+        }
+
+        public async Task<Result<SearchResponse>> SearchAuthAsync(Guid buyerId, SearchRequest request)
+        {
+            var searchResult = await searchRepository.SearchInProducts(request);
+
+            var items = mapper.Map<IEnumerable<ProductShortDTO>>(searchResult.items);
+            foreach (var item in items)
+            {
+                item.IsFavorited = favoritesService.IsFavorited(buyerId, item.Id);
+                item.CountInBasket = basketService.GetCountInBasket(buyerId, item.Id);
+            }
+
+            return Result.Ok(new SearchResponse()
+            {
+                Items = items,
+                PageNumber = request.pageNumber,
+                PageSize = request.pageSize,
+                TotalPageCount = searchResult.totalCount,
             });
         }
 

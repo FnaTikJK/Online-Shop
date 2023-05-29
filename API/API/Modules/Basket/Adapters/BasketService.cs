@@ -3,6 +3,7 @@ using API.Modules.Account.Ports;
 using API.Modules.Basket.Core;
 using API.Modules.Basket.DTO;
 using API.Modules.Basket.Ports;
+using API.Modules.Favorites.Ports;
 using AutoMapper;
 
 namespace API.Modules.Basket.Adapters
@@ -22,12 +23,22 @@ namespace API.Modules.Basket.Adapters
 
         public Result<IEnumerable<BasketItemDTO>> GetBasket(Guid buyerId)
         {
+            
+
             return Result.Ok(mapper.Map<IEnumerable<BasketItemDTO>>(basketRepository.GetAllByBuyer(buyerId)));
         }
 
         public Result<int> GetBasketCount(Guid buyerId)
         {
             return Result.Ok(basketRepository.GetAllByBuyer(buyerId).GroupBy(e => e.Product).Count());
+        }
+
+        public int GetCountInBasket(Guid buyerId, Guid productId)
+        {
+            var task = basketRepository.GetByBuyerAndProduct(buyerId, productId);
+            task.Wait();
+
+            return task.Result?.Count ?? 0;
         }
 
         public async Task<Result<int>> UpdateOrAddItemAsync(Guid buyerId, BasketItemAddDTO addDto)

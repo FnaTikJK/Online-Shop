@@ -28,6 +28,11 @@ namespace API.Modules.Favorites.Adapters
                 .Select(e => e.Product);
         }
 
+        public bool IsFavorited(Guid buyerId, Guid productId)
+        {
+            return Set.FirstOrDefault(e => e.Buyer.Id == buyerId && e.Product.Id == productId) != null;
+        }
+
         public async Task AddFavoriteAsync(Guid buyerId, Guid productId)
         {
             var buyer = await userRepository.GetBuyerByIdAsync(buyerId);

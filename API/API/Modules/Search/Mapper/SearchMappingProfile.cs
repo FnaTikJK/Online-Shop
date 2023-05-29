@@ -1,4 +1,5 @@
 ﻿using API.Modules.Search.DTO;
+using AutoMapper;
 
 namespace API.Modules.Search.Mapper
 {

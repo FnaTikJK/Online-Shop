@@ -1,11 +1,11 @@
 import axios, {AxiosResponse} from "axios";
 import {ApiRouteBuilder} from "../ApiRouteBuilder";
 import {GUID} from "../../Infrastructure/Guid";
-import {ProductDto} from "./ProductRequester";
+import {ProductDto, ProductShortDTO} from "./ProductRequester";
 
 export class FavoriteRequester{
-    public static async GetAllFavoritesAsync(): Promise<AxiosResponse<ProductDto[]>>{
-        return await axios.get<ProductDto[]>(ApiRouteBuilder.Favorites.Build());
+    public static async GetAllFavoritesAsync(): Promise<AxiosResponse<ProductShortDTO[]>>{
+        return await axios.get<ProductShortDTO[]>(ApiRouteBuilder.Favorites.Build());
     }
 
     public static async GetFavoritesCountAsync(): Promise<AxiosResponse<number>>{

@@ -1,6 +1,8 @@
-﻿using API.Modules.Search.Core;
+﻿using API.Infrastructure.Extensions;
+using API.Modules.Search.Core;
 using API.Modules.Search.DTO;
 using API.Modules.Search.Ports;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,16 @@ namespace API.Modules.Search
         public async Task<ActionResult<SearchResponse>> SearchAsync([FromQuery] SearchRequest searchRequest)
         {
             var response = await searchService.SearchAsync(searchRequest);
+
+            return response.IsSuccess ? Ok(response.Value)
+                : BadRequest(response.Error);
+        }
+
+        [HttpGet("Auth")]
+        [Authorize]
+        public async Task<ActionResult<SearchResponse>> SearchAuthAsync([FromQuery] SearchRequest searchRequest)
+        {
+            var response = await searchService.SearchAuthAsync(Guid.Parse(User.GetId()), searchRequest);
 
             return response.IsSuccess ? Ok(response.Value)
                 : BadRequest(response.Error);

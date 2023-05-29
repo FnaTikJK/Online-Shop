@@ -19,7 +19,7 @@ const HeaderComp = () => {
             <div className={styles.Mock}/>
 
             <header className={styles.Header}>
-                <div className={styles.Logo}><a href={"/"}>Logo</a></div>
+                <div className={styles.Logo}><a href={"/"}>Главная</a></div>
                 <SearchComp />
                 <NavigationComp />
             </header>

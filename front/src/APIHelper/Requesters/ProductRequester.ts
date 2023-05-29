@@ -18,6 +18,8 @@ export interface ProductShortDTO{
     price: number,
     categories: CategoryShortDto[],
     image: string | null,
+    isFavorited: boolean,
+    countInBasket: number
 }
 
 export class ProductRequester{

@@ -7,14 +7,23 @@ import {useSearchParams} from "react-router-dom";
 import {Guid} from "../../Infrastructure/Guid";
 import FiltersComp from "./FiltersComp/FiltersComp";
 import PaginationComp from "./PaginationComp/PaginationComp";
+import {ProductShortDTO} from "../../APIHelper/Requesters/ProductRequester";
 
 async function GetSearchResultAsync(searchRequest: SearchRequestDTO): Promise<SearchResponseDTO | undefined>{
     try {
-        let response: AxiosResponse<SearchResponseDTO> = await SearchRequester.SearchAsync(searchRequest);
+        let response: AxiosResponse<SearchResponseDTO> = await SearchRequester.SearchAsync(searchRequest, true);
         return response.data;
     }
     catch (e: any){ // AxiosError
-        alert(`Ошибка ${e.response.status}. ${e.response.text}`);
+        if (e.response?.status === 401){
+            try{
+                let response: AxiosResponse<SearchResponseDTO> = await SearchRequester.SearchAsync(searchRequest);
+                return response.data;
+            }
+            catch (e: any){
+                alert(`Ошибка ${e.response.status}. ${e.response.text}`);
+            }
+        }
     }
 }
 
@@ -72,7 +81,7 @@ const HomePage = () => {
 
             <div className={styles.DivProducts}>
                 {searchResponse?.items?.map((p) =>
-                <ProductCardComp product={p} initIsFavorited={false} initCount={0}/>
+                <ProductCardComp product={p} initIsFavorited={p.isFavorited} initCount={p.countInBasket}/>
                 )}
 
                 <div>

@@ -13,13 +13,9 @@ async function GetFavoritesAsync(navigate: NavigateFunction): Promise<ProductSho
     catch (e: any){ // AxiosError
         if (e.response.status === 401)
             navigate("/Auth");
-        alert(e);
+        else
+            alert(e);
     }
-}
-
-function DrawProducts(products: ProductShortDTO[]): JSX.Element[] {
-    return products.map((p) =>
-        <ProductCardComp product={p} initIsFavorited={true} initCount={0} />);
 }
 
 const FavoritePage = () => {
@@ -40,12 +36,11 @@ const FavoritePage = () => {
         <>
             <h1 className={styles.Centered}>Избранное</h1>
             <div className={styles.ProductsContainer}>
-                {DrawProducts(products)}
+                {products.map((p) =>
+                    <ProductCardComp product={p} initIsFavorited={true} initCount={p.countInBasket} />)}
             </div>
         </>
     );
-
-
 };
 
 export default FavoritePage;

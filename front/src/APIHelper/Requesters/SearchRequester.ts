@@ -30,8 +30,10 @@ export interface FiltersDTO{
 }
 
 export class SearchRequester {
-    public static async SearchAsync(request: SearchRequestDTO): Promise<AxiosResponse<SearchResponseDTO>>{
-        return await axios.get<SearchResponseDTO>(ApiRouteBuilder.Search.Build(), {
+    public static async SearchAsync(request: SearchRequestDTO, isAuth: boolean = false): Promise<AxiosResponse<SearchResponseDTO>>{
+        let url = isAuth ? ApiRouteBuilder.Search.With("Auth").Build() :
+            ApiRouteBuilder.Search.Build();
+        return await axios.get<SearchResponseDTO>(url, {
             params: {
                 text: request.text,
                 categoriesId: request.categoriesId,

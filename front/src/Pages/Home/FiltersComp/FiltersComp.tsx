@@ -32,11 +32,8 @@ function ApplyParams(searchParams: URLSearchParams, setSearchParams: any){
                 searchParams.set(key, filterParams[key] as string);
         }
         else {
-            let arr = filterParams[key] as string[];
-            if (arr.length == 0)
-                searchParams.delete(key);
-            else
-                arr.forEach(e => searchParams.append(key, e));
+            searchParams.delete(key);
+            (filterParams[key] as string[]).forEach(e => searchParams.append(key, e));
         }
     }
     setSearchParams(searchParams);

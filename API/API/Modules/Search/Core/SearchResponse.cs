@@ -6,7 +6,7 @@ namespace API.Modules.Search.Core
     {
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
-        public int TotalCount { get; set; }
+        public int TotalPageCount { get; set; }
         public IEnumerable<ProductShortDTO> Items { get; set; }
     }
 }

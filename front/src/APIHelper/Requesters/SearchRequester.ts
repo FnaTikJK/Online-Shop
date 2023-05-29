@@ -2,6 +2,7 @@ import {GUID} from "../../Infrastructure/Guid";
 import axios, {AxiosResponse} from "axios";
 import {ApiRouteBuilder} from "../ApiRouteBuilder";
 import {ProductShortDTO} from "./ProductRequester";
+import qs from "qs";
 
 
 export interface SearchRequestDTO{
@@ -9,12 +10,16 @@ export interface SearchRequestDTO{
     categoriesId?: GUID[],
     pageSize?: number,
     pageNumber?: number,
+    priceFrom?: number,
+    priceTo?: number,
+    orderBy?: "Name" | "Price",
+    descending?: boolean,
 }
 
 export interface SearchResponseDTO{
     pageSize: number,
     pageNumber: number,
-    totalCount: number,
+    totalPageCount: number,
     items: ProductShortDTO[],
 }
 
@@ -31,7 +36,14 @@ export class SearchRequester {
                 text: request.text,
                 categoriesId: request.categoriesId,
                 pageSize: request.pageSize,
-                pageNumber: request.pageNumber
+                pageNumber: request.pageNumber,
+                priceFrom: request.priceFrom,
+                priceTo: request.priceTo,
+                orderBy: request.orderBy,
+                descending: request.descending
+            },
+            paramsSerializer: params => {
+                return qs.stringify(params, { arrayFormat: "repeat" })
             }
         })
     }

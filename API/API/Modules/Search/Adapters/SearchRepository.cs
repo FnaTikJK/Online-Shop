@@ -17,14 +17,23 @@ namespace API.Modules.Search.Adapters
                 .Include(p => p.Categories)
                 .Where(p => p.Name.Contains(searchRequest.text)) //p.Name.Contains(searchRequest.text)
                 .Where(p => searchRequest.categoriesId == null
-                    || p.Categories.Count(c => searchRequest.categoriesId.Contains(c.Id)) == searchRequest.categoriesId.Count);
-            var totalCount = query.Count();
+                    || p.Categories.Count(c => searchRequest.categoriesId.Contains(c.Id)) == searchRequest.categoriesId.Count)
+                .Where(p => p.Price >= searchRequest.priceFrom && p.Price <= searchRequest.priceTo);
+            if (searchRequest.orderBy == OrderBy.Name)
+                query = query.OrderBy(p => p.Name);
+            else if (searchRequest.orderBy == OrderBy.Price)
+                query = query.OrderBy(p => p.Price);
+
+            if (searchRequest.descending)
+                query = query.Reverse();
+
+            var totalPageCount = query.Count() / searchRequest.pageSize + 1;
             var result = await query
                 .Skip(searchRequest.pageSize * (searchRequest.pageNumber - 1))
                 .Take(searchRequest.pageSize)
                 .ToListAsync();
 
-            return (result, totalCount);
+            return (result, totalPageCount);
         }
     }
 }

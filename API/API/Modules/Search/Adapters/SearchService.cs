@@ -33,7 +33,7 @@ namespace API.Modules.Search.Adapters
                 Items = mapper.Map<IEnumerable<ProductShortDTO>>(result.items),
                 PageNumber = request.pageNumber,
                 PageSize = request.pageSize,
-                TotalCount = result.totalCount
+                TotalPageCount = result.totalCount
             });
         }
 

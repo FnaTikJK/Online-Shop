@@ -19,20 +19,32 @@ async function GetSearchResultAsync(searchRequest: SearchRequestDTO): Promise<Se
 }
 
 function ParseSearchParams(searchParams: URLSearchParams): SearchRequestDTO{
-    let response: SearchRequestDTO= {};
+    let request: SearchRequestDTO= {};
     let text = searchParams.get("text");
     if (text)
-        response.text = text;
-    let categoriesId = searchParams.get("categoriesId")
+        request.text = text;
+    let categoriesId = searchParams.getAll("categoriesId")
     if (categoriesId)
-        response.categoriesId = categoriesId.split(" ").map(c => Guid(c));
+        request.categoriesId = categoriesId.map(c => Guid(c));
     let pageSize = searchParams.get("pageSize")
     if (pageSize)
-        response.pageSize = Number(pageSize);
+        request.pageSize = Number(pageSize);
     let pageNumber = searchParams.get("pageNumber")
     if (pageNumber)
-        response.pageNumber = Number(pageNumber);
-    return response;
+        request.pageNumber = Number(pageNumber);
+    let priceFrom = searchParams.get("priceFrom")
+    if (priceFrom)
+        request.priceFrom = Number(priceFrom);
+    let priceTo = searchParams.get("priceTo")
+    if (priceTo)
+        request.priceTo = Number(priceTo);
+    let orderBy = searchParams.get("orderBy") as ("Name" | "Price" | undefined)
+    if (orderBy)
+        request.orderBy = orderBy;
+    let descending = searchParams.get("descending")
+    if (descending)
+        request.descending = descending !== "false";
+    return request;
 }
 
 const HomePage = () => {
@@ -62,8 +74,10 @@ const HomePage = () => {
                 {searchResponse?.items?.map((p) =>
                 <ProductCardComp product={p} initIsFavorited={false} initCount={0}/>
                 )}
-                Номер стр = {searchResponse?.pageNumber}
-                Всего = {searchResponse?.totalCount}
+            </div>
+
+            <div>
+                
             </div>
         </div>
     );

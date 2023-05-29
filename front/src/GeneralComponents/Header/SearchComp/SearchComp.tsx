@@ -7,6 +7,7 @@ function SetSearchText(searchParams: URLSearchParams, setSearchParams: any, text
     text = text.trim();
     if (text !== ""){
         searchParams.set("text", text);
+        searchParams.delete("pageNumber");
         setSearchParams(searchParams);
     }
 }

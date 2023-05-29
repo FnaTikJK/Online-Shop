@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProductCardComp from "../../GeneralComponents/ProductCard/ProductCardComp";
 import {AxiosResponse} from "axios";
 import styles from "./HomePage.module.css"
 import {SearchRequestDTO, SearchRequester, SearchResponseDTO} from "../../APIHelper/Requesters/SearchRequester";
 import {useSearchParams} from "react-router-dom";
 import {Guid} from "../../Infrastructure/Guid";
-import {SearchContext} from "../../CommonResources";
 import FiltersComp from "./FiltersComp/FiltersComp";
+import PaginationComp from "./PaginationComp/PaginationComp";
 
 async function GetSearchResultAsync(searchRequest: SearchRequestDTO): Promise<SearchResponseDTO | undefined>{
     try {
@@ -74,10 +74,10 @@ const HomePage = () => {
                 {searchResponse?.items?.map((p) =>
                 <ProductCardComp product={p} initIsFavorited={false} initCount={0}/>
                 )}
-            </div>
 
-            <div>
-                
+                <div>
+                    <PaginationComp current={searchResponse?.pageNumber ?? 1} total={searchResponse?.totalPageCount ?? 10}/>
+                </div>
             </div>
         </div>
     );

@@ -36,12 +36,14 @@ function ApplyParams(searchParams: URLSearchParams, setSearchParams: any){
             (filterParams[key] as string[]).forEach(e => searchParams.append(key, e));
         }
     }
+    searchParams.delete("pageNumber");
     setSearchParams(searchParams);
 }
 
 function ResetParams(searchParams: URLSearchParams, setSearchParams: any){
     for(let key in filterParams)
         searchParams.delete(key);
+    searchParams.delete("pageNumber");
     setSearchParams(searchParams);
 }
 

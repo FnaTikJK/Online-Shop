@@ -1,11 +1,17 @@
 .DivMain {
-
+    margin-left: 10%;
+    margin-right: 10%;
+    position: relative;
 }
 
-.DivFullInfo {
 
+.DivImgContainer {
+    margin:auto;
+    width: 50%;
+    display: inline-block;
+    float: right;
 }
 
-.DivShortInfo {
-
+.DivInfo {
+    display: inline-block;
 }

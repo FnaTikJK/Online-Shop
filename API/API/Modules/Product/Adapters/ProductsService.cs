@@ -1,4 +1,6 @@
 ﻿using API.Infrastructure;
+using API.Modules.Basket.Ports;
+using API.Modules.Favorites.Ports;
 using API.Modules.Product.DTO;
 using API.Modules.Product.Ports;
 using AutoMapper;
@@ -9,11 +11,16 @@ namespace API.Modules.Product.Adapters
     {
         private readonly IMapper mapper;
         private readonly IProductsRepository productsRepository;
+        private readonly IBasketService basketService;
+        private readonly IFavoritesService favoritesService;
 
-        public ProductsService(IMapper mapper, IProductsRepository productsRepository)
+        public ProductsService(IMapper mapper, IProductsRepository productsRepository, IFavoritesService favoritesService,
+            IBasketService basketService)
         {
             this.mapper = mapper;
             this.productsRepository = productsRepository;
+            this.favoritesService = favoritesService;
+            this.basketService = basketService;
         }
 
         public async Task<Result<IEnumerable<ProductDTO>>> GetAllAsync()
@@ -32,9 +39,21 @@ namespace API.Modules.Product.Adapters
         {
             var existed = await productsRepository.GetByIdAsync(id);
             if (existed == null)
-                return Result.Fail<ProductDTO>("Такого продукта не сущесвтует");
+                return Result.Fail<ProductDTO>("Такого продукта не существует");
 
             return Result.Ok(mapper.Map<ProductDTO>(existed));
+        }
+
+        public async Task<Result<ProductDTO>> GetByIdWithInfoAsync(Guid buyerId, Guid productId)
+        {
+            var existed = await productsRepository.GetByIdAsync(productId);
+            if (existed == null)
+                return Result.Fail<ProductDTO>("Такого продукта не сущесвтует");
+
+            var mapped = mapper.Map<ProductDTO>(existed);
+            mapped.IsFavorited = favoritesService.IsFavorited(buyerId, productId);
+            mapped.CountInBasket = basketService.GetCountInBasket(buyerId, productId);
+            return Result.Ok(mapped);
         }
 
         public async Task<Result<bool>> AddAsync(ProductAddDTO productDto)

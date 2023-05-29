@@ -1,4 +1,5 @@
-﻿using API.Modules.Product.DTO;
+﻿using API.Infrastructure.Extensions;
+using API.Modules.Product.DTO;
 using API.Modules.Product.Ports;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,15 @@ namespace API.Modules.Product
         public async Task<ActionResult<ProductDTO>> GetByIdAsync(Guid id)
         {
             var response = await productsService.GetByIdAsync(id);
+
+            return response.IsSuccess ? Ok(response.Value)
+                : BadRequest(response.Error);
+        }
+
+        [HttpGet("{id:Guid}/Auth")]
+        public async Task<ActionResult<ProductDTO>> GetByIdWithInfoAsync(Guid id)
+        {
+            var response = await productsService.GetByIdWithInfoAsync(Guid.Parse(User.GetId()), id);
 
             return response.IsSuccess ? Ok(response.Value)
                 : BadRequest(response.Error);

@@ -3,14 +3,24 @@ import {useParams} from "react-router";
 import {ProductDto, ProductRequester} from "../../APIHelper/Requesters/ProductRequester";
 import {GUID} from "../../Infrastructure/Guid";
 import styles from "./ProductPage.module.css";
+import {urlNoImage} from "../../CommonResources";
+import ProductBasketManagerComp from "../../GeneralComponents/ProductBasketManager/ProductBasketManagerComp";
+import ProductFavoriteComp from "../../GeneralComponents/ProductFavoriteComp/ProductFavoriteComp";
+import {Button} from "antd";
 
 async function GetProductAsync(id: GUID): Promise<ProductDto | undefined> {
     try {
-        let response = await ProductRequester.GetProductByIdAsync(id);
+        let response = await ProductRequester.GetProductByIdAsync(id, true);
         return response.data
     }
     catch (e) {
-
+        try {
+            let response = await ProductRequester.GetProductByIdAsync(id);
+            return response.data
+        }
+        catch (e){
+            alert(e);
+        }
     }
 }
 
@@ -36,11 +46,18 @@ const ProductPage = () => {
 
     return (
         <div className={styles.DivMain}>
-            <div className={styles.DivFullInfo}>
-                {product.name}
+            <div className={styles.DivImgContainer}>
+                <img src={urlNoImage}/>
             </div>
-            <div className={styles.DivShortInfo}>
 
+            <div className={styles.DivInfo}>
+                <h2>{product.name}</h2>
+                {product.categories.map(c => <Button>{c.name}</Button>)}
+                <h3>{product.price} ₽</h3>
+                <ProductBasketManagerComp id={product.id} initCount={product.countInBasket} />
+                <ProductFavoriteComp id={product.id} initIsFavorited={product.isFavorited} />
+                <h4>Описание</h4>
+                {product.description}
             </div>
         </div>
     );

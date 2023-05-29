@@ -8,6 +8,7 @@ namespace API.Modules.Product.Ports
         public Task<Result<IEnumerable<ProductDTO>>> GetAllAsync();
         public Result<(double from, double to)> GetPrices();
         public Task<Result<ProductDTO>> GetByIdAsync(Guid id);
+        public Task<Result<ProductDTO>> GetByIdWithInfoAsync(Guid buyerId, Guid productId);
         public Task<Result<bool>> AddAsync(ProductAddDTO productDto);
         public Task<Result<bool>> UpdateAsync(ProductDTO productDto);
         public Task<Result<bool>> DeleteAsync(Guid id);

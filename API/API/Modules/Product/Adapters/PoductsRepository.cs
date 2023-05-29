@@ -15,6 +15,12 @@ namespace API.Modules.Product.Adapters
             return await Set.Include(e => e.Categories).ToListAsync();
         }
 
+        public (double from, double to) GetPrices()
+        {
+            var all = Set.Select(e => e.Price).OrderBy(e => e);
+            return (all.First(), all.Last());
+        }
+
         public async Task<Core.Product?> GetByIdAsync(Guid id)
         {
             return await Set.Include(e => e.Categories).FirstOrDefaultAsync(e => e.Id == id);

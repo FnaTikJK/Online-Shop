@@ -1,4 +1,5 @@
 ﻿using API.Modules.Search.Core;
+using API.Modules.Search.DTO;
 using API.Modules.Search.Ports;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,15 @@ namespace API.Modules.Search
 
             return response.IsSuccess ? Ok(response.Value)
                 : BadRequest(response.Error);
+        }
+
+        [HttpGet("Filters")]
+        public async Task<ActionResult<FiltersDTO>> GetFilters()
+        {
+            var response = await searchService.GetFilters();
+
+            return response.IsSuccess ? 
+                Ok(response.Value) : BadRequest(response.Error);
         }
     }
 }

@@ -18,6 +18,12 @@ export interface SearchResponseDTO{
     items: ProductShortDTO[],
 }
 
+export interface FiltersDTO{
+    categories: {id:GUID, name:string}[],
+    from: number,
+    to: number
+}
+
 export class SearchRequester {
     public static async SearchAsync(request: SearchRequestDTO): Promise<AxiosResponse<SearchResponseDTO>>{
         return await axios.get<SearchResponseDTO>(ApiRouteBuilder.Search.Build(), {
@@ -28,5 +34,9 @@ export class SearchRequester {
                 pageNumber: request.pageNumber
             }
         })
+    }
+
+    public static async GetFiltersAsync(): Promise<AxiosResponse<FiltersDTO>>{
+        return await axios.get<FiltersDTO>(ApiRouteBuilder.Search.With("Filters").Build());
     }
 }

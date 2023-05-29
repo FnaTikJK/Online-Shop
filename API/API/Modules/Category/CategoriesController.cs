@@ -16,7 +16,7 @@ namespace API.Modules.Category
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<CategoryShortDTO>>> GetAllAsync()
         {
             var response = await categoriesService.GetAllAsync();
 

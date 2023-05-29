@@ -21,6 +21,13 @@ namespace API.Modules.Product.Adapters
             return Result.Ok(mapper.Map<IEnumerable<ProductDTO>>(await productsRepository.GetAllAsync()));
         }
 
+        public Result<(double from, double to)> GetPrices()
+        {
+            var prices = productsRepository.GetPrices();
+
+            return Result.Ok(prices);
+        }
+
         public async Task<Result<ProductDTO>> GetByIdAsync(Guid id)
         {
             var existed = await productsRepository.GetByIdAsync(id);

@@ -16,10 +16,10 @@ namespace API.Modules.Category.Adapters
             this.mapper = mapper;
         }
 
-        public async Task<Result<IEnumerable<CategoryDTO>>> GetAllAsync()
+        public async Task<Result<IEnumerable<CategoryShortDTO>>> GetAllAsync()
         {
             return Result.Ok(
-                mapper.Map<IEnumerable<CategoryDTO>>(await categoriesRepository.GetAllAsync()));
+                mapper.Map<IEnumerable<CategoryShortDTO>>(await categoriesRepository.GetAllAsync()));
         }
 
         public async Task<Result<CategoryDTO>> GetByIdAsync(Guid id)

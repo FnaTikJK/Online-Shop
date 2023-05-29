@@ -32,7 +32,6 @@ const BasketItemCard = ({item, summary, setSummary}: Props) => {
                     <ProductBasketManagerComp
                         id={item.product.id} initCount={item.count}
                         setSummaryFunc={SetSummaryFunc(item.product.price, summary, setSummary)}/>
-                    <ProductFavoriteComp id={item.product.id} initIsFavorited={false} />
                 </div>
             </div>
             <hr className={styles.Separator}/>

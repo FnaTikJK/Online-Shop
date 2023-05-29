@@ -3,6 +3,7 @@ import {HeartOutlined, HeartFilled} from "@ant-design/icons";
 import {GUID} from "../../Infrastructure/Guid";
 import {FavoriteRequester} from "../../APIHelper/Requesters/FavoriteRequester";
 import {FavoritesContext} from "../../CommonResources";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
     id: GUID,
@@ -12,6 +13,7 @@ type Props = {
 const ProductFavoriteComp = ({id, initIsFavorited}: Props) => {
     const [isFavorited, setIsFavorited] = useState<boolean>(initIsFavorited)
     const favoriteType = useContext(FavoritesContext);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -29,8 +31,11 @@ const ProductFavoriteComp = ({id, initIsFavorited}: Props) => {
             if (response.data !== undefined)
                 favoriteType?.setFavorites(response.data);
         }
-        catch (e){
-            alert(e);
+        catch (e: any){
+            if (e.response.status === 401 || e.response.status === 401)
+                navigate("Auth");
+            else
+                alert(e);
             setIsFavorited(false);
         }
     }
@@ -42,8 +47,11 @@ const ProductFavoriteComp = ({id, initIsFavorited}: Props) => {
             if (response.data !== undefined)
                 favoriteType?.setFavorites(response.data);
         }
-        catch (e){
-            alert(e);
+        catch (e: any){
+            if (e.response.status === 401 || e.response.status === 401)
+                navigate("Auth");
+            else
+                alert(e);
             setIsFavorited(true);
         }
     }

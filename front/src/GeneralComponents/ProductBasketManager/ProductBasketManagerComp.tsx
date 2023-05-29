@@ -4,6 +4,7 @@ import {GUID} from "../../Infrastructure/Guid";
 import {Button} from "antd";
 import {BasketRequester} from "../../APIHelper/Requesters/BasketRequester";
 import {BasketCountContext} from "../../CommonResources";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
     id: GUID,
@@ -14,6 +15,7 @@ type Props = {
 const ProductBasketManagerComp = ({id, initCount, setSummaryFunc}: Props) => {
     const [count, setCount] = useState<number>(initCount);
     const basketCountType = useContext(BasketCountContext);
+    const navigate = useNavigate();
 
     return count > 0 ?
         (<>
@@ -37,8 +39,11 @@ const ProductBasketManagerComp = ({id, initCount, setSummaryFunc}: Props) => {
             if (setSummaryFunc)
                 setSummaryFunc(newCount - oldCount);
         }
-        catch(e) {
-            alert(e);
+        catch(e: any) {
+            if (e.response.status === 401 || e.response.status === 403)
+                navigate("Auth");
+            else
+                alert(e);
         }
     }
 

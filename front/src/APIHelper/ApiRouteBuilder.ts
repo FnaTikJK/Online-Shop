@@ -1,5 +1,5 @@
 export class ApiRouteBuilder {
-    public static BaseUrl: ApiRouteBuilder = new ApiRouteBuilder("/api");
+    public static BaseUrl: ApiRouteBuilder = new ApiRouteBuilder("/back/api");
 
     private static AccountsBase: ApiRouteBuilder = ApiRouteBuilder.BaseUrl.With("Accounts");
     public static Accounts = {
@@ -20,12 +20,6 @@ export class ApiRouteBuilder {
     public static Baskets = ApiRouteBuilder.BaseUrl.With("Baskets");
 
     public static Search = ApiRouteBuilder.BaseUrl.With("Search");
-
-
-
-
-
-
 
     private route: string;
     private queryParams: { [key:string]: string } = {};

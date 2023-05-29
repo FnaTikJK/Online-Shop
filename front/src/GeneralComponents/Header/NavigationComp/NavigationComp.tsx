@@ -12,8 +12,8 @@ async function GetFavoritesCountAsync(): Promise<number | undefined>{
         return response.data;
     }
     catch (e: any){
-        if (e.response.status !== 401 || e.response.status !== 403)
-            alert(e);
+        if (!(e.response?.status === 401 || e.response?.status === 403))
+            alert(e.response?.status);
     }
 }
 
@@ -23,8 +23,8 @@ async function GetBasketCountAsync(): Promise<number | undefined>{
         return response.data;
     }
     catch (e: any){
-        if (e.response.status !== 401 || e.response.status !== 403)
-            alert(e);
+        if (!(e.response?.status === 401 || e.response?.status === 403))
+            alert(e.response?.status);
     }
 }
 

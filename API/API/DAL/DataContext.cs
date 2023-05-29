@@ -12,7 +12,12 @@ namespace API.DAL
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            //DataInitiator.InitDb(this);
+            
+        }
+
+        public void Init()
+        {
+            DataInitiator.InitDb(this);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

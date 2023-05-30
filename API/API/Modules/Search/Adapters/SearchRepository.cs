@@ -27,7 +27,7 @@ namespace API.Modules.Search.Adapters
             if (searchRequest.descending)
                 query = query.Reverse();
 
-            var totalPageCount = query.Count() / searchRequest.pageSize + 1;
+            var totalPageCount = (int)Math.Ceiling(query.Count() / (double)searchRequest.pageSize);
             var result = await query
                 .Skip(searchRequest.pageSize * (searchRequest.pageNumber - 1))
                 .Take(searchRequest.pageSize)

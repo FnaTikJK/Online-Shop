@@ -6,6 +6,6 @@
         public string Description { get; set; }
         public double Price { get; set; }
         public HashSet<Guid> Categories { get; set; }
-        public byte[]? Image { get; set; }
+        public string? Image { get; set; }
     }
 }

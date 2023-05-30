@@ -12,6 +12,11 @@
     float: right;
 }
 
+.Img {
+    max-width: 100%;
+}
+
 .DivInfo {
+    width: 50%;
     display: inline-block;
 }

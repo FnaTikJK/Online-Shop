@@ -47,7 +47,7 @@ const ProductPage = () => {
     return (
         <div className={styles.DivMain}>
             <div className={styles.DivImgContainer}>
-                <img src={urlNoImage}/>
+                <img src={product.image as string ?? urlNoImage} className={styles.Img}/>
             </div>
 
             <div className={styles.DivInfo}>

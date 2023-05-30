@@ -25,7 +25,7 @@ const BasketItemCard = ({item, summary, setSummary}: Props) => {
             <div className={styles.DivSubName}>
                 <a href={url}>
                     <img className={styles.Img} alt={item.product.name}
-                        src={urlNoImage}/></a>
+                        src={item.product.image === "" ? urlNoImage : item.product.image as string}/></a>
                 <div>
                     <a href={url}><p className={styles.ProductName}>{item.product.name}</p></a>
                     <h3 className={styles.Price}>{item.product.price} ₽</h3>
